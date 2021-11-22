@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    triggers {
+        githubPush()
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: "10"))
+    }
+    stages {
+        stage('Build') {
+          when{ branch 'main' }
+          agent {
+                   
+          steps {
+                
+               
+                    withCredentials([sshUserPrivateKey(credentialsId: 'Jenkins-user', keyFileVariable: 'SSH_KEY')]) {
+                    sh 'scp -i \${SSH_KEY} -v -o StrictHostKeyChecking=no -r ./README.md/ ubuntu@:3.110.131.255/var/www/html/dashboard/' }
+                    
+                    }
+                }   
+            
+            }                               
+        }
+
+    }
+
