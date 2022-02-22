@@ -15,7 +15,7 @@ pipeline {
                 
                
                     withCredentials([sshUserPrivateKey(credentialsId: 'Jenkins-user', keyFileVariable: 'SSH_KEY')]) {
-                    sh 'scp -i \${SSH_KEY} -v -o StrictHostKeyChecking=no -r ./README.md/ ubuntu@:3.110.131.255/var/www/html/dashboard/' }
+                    sh 'scp -i \${SSH_KEY} -v -o StrictHostKeyChecking=no -r ./README.md/ ubuntu@:/var/www/html/dashboard/' }
                     
                     }
                 }   
